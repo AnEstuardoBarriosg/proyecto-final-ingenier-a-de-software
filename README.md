@@ -4,7 +4,7 @@ Raíces Market es una plataforma web de e-commerce para artesanías o productos 
 
 ## Integrantes
 - Angel Estuardo Barrios Gómez
-- [Nombre de tu compañera]
+- Ximena
 
 ## Objetivo del proyecto
 Desarrollar una versión funcional del sistema definido en la Fase I, manteniendo coherencia con los requerimientos, la arquitectura, el modelo de datos y la propuesta visual ya aprobada.
