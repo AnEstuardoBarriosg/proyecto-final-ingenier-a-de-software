@@ -1,14 +1,88 @@
-# Proyecto de Ingeniería de Software
+# Raíces Market
 
-Repositorio del proyecto desarrollado para el curso de Ingeniería de Software.
+Raíces Market es una plataforma web de e-commerce para artesanías o productos locales con pago simulado. El sistema permite que los clientes exploren productos, los agreguen al carrito, realicen compras y consulten el estado de sus pedidos. Además, incluye funcionalidades para vendedores y administradores.
 
-## Estructura del repositorio
+## Integrantes
+- Angel Estuardo Barrios Gómez
+- [Nombre de tu compañera]
 
-- `frontend/`: contiene la interfaz del sistema.
-- `backend/`: contiene la lógica del servidor y la API.
-- `database/`: contiene scripts, modelos o documentación relacionada con la base de datos.
-- `docs/`: contiene documentación, diagramas, capturas y entregables del proyecto.
+## Objetivo del proyecto
+Desarrollar una versión funcional del sistema definido en la Fase I, manteniendo coherencia con los requerimientos, la arquitectura, el modelo de datos y la propuesta visual ya aprobada.
 
-## Estado del proyecto
+## Stack tecnológico
+### Frontend
+- React
 
-Estructura inicial creada y lista para comenzar el desarrollo.
+### Backend
+- Node.js
+- Express
+
+### Base de datos
+- PostgreSQL
+
+### Autenticación
+- JWT
+
+### Infraestructura / Hosting
+- Vercel para frontend
+- Render para backend y base de datos
+
+## Estructura del proyecto
+
+/frontend   -> aplicación web  
+/backend    -> API y lógica del sistema  
+/database   -> scripts SQL y datos semilla  
+/docs       -> documentación, evidencias y pruebas  
+
+## Funcionalidades principales
+- Registro e inicio de sesión
+- Catálogo de productos
+- Búsqueda y filtrado
+- Detalle del producto
+- Carrito de compras
+- Checkout
+- Pago simulado
+- Historial de pedidos
+- Panel del vendedor
+- Panel administrativo
+
+## Estado actual del proyecto
+- Repositorio creado: sí
+- Azure DevOps configurado: sí
+- Fase I aprobada: sí
+- Frontend base: pendiente / en proceso
+- Backend base: pendiente / en proceso
+- Base de datos: pendiente / en proceso
+- Autenticación: pendiente / en proceso
+- Catálogo: pendiente
+- Carrito: pendiente
+- Pago simulado: pendiente
+- Despliegue: pendiente
+
+## Requisitos previos
+Antes de ejecutar el proyecto, es necesario tener instalado:
+
+- Node.js
+- npm
+- PostgreSQL
+- Git
+
+## Configuración del entorno
+
+### Backend
+1. Entrar a la carpeta `backend`
+2. Crear un archivo `.env` a partir de `.env.example`
+3. Configurar las variables necesarias
+
+### Frontend
+1. Entrar a la carpeta `frontend`
+2. Crear un archivo `.env` a partir de `.env.example`
+3. Configurar la URL de la API
+
+## Instalación y ejecución
+
+### Backend
+```bash
+cd backend
+npm install
+npm run dev
