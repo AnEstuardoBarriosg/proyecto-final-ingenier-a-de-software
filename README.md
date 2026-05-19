@@ -23,6 +23,9 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 ### Autenticación
 - JWT
 
+### Gestión de paquetes
+- pnpm
+
 ### Infraestructura / Hosting
 - Vercel para frontend
 - Render para backend y base de datos
@@ -50,20 +53,49 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 - Repositorio creado: sí
 - Azure DevOps configurado: sí
 - Fase I aprobada: sí
-- Frontend base: pendiente / en proceso
-- Backend base: pendiente / en proceso
-- Base de datos: pendiente / en proceso
-- Autenticación: pendiente / en proceso
-- Catálogo: pendiente
-- Carrito: pendiente
-- Pago simulado: pendiente
+- Base de datos PostgreSQL creada: sí
+- `schema.sql` creado: sí
+- `seeds.sql` creado: sí
+- Backend base iniciado: sí
+- Conexión a base de datos: funcional
+- Registro de usuarios: funcional
+- Inicio de sesión: funcional
+- JWT y rutas protegidas: funcional
+- Módulo de productos: funcional
+- Módulo de carrito: funcional
+- Frontend en React: en desarrollo
 - Despliegue: pendiente
+
+## Endpoints disponibles actualmente
+
+### Utilitarios
+- `GET /health`
+- `GET /db-test`
+
+### Autenticación
+- `GET /auth/test`
+- `POST /auth/register`
+- `POST /auth/login`
+
+### Usuario
+- `GET /user/profile`
+- `GET /user/cliente-only`
+
+### Productos
+- `GET /products`
+- `GET /products/:id`
+
+### Carrito
+- `GET /cart`
+- `POST /cart/items`
+- `PUT /cart/items/:id`
+- `DELETE /cart/items/:id`
 
 ## Requisitos previos
 Antes de ejecutar el proyecto, es necesario tener instalado:
 
 - Node.js
-- npm
+- pnpm
 - PostgreSQL
 - Git
 
@@ -84,5 +116,5 @@ Antes de ejecutar el proyecto, es necesario tener instalado:
 ### Backend
 ```bash
 cd backend
-npm install
-npm run dev
+pnpm install
+pnpm run dev
