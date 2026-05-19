@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const pool = require("./db/pool");
 
-
+const ordersRoutes = require("./routes/orders.routes");
 const cartRoutes = require("./routes/cart.routes");
 const productsRoutes = require("./routes/products.routes");
 const userRoutes = require("./routes/user.routes");
@@ -37,6 +37,7 @@ app.get("/db-test", async (req, res) => {
   }
 });
 
+app.use("/orders", ordersRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/products", productsRoutes);
