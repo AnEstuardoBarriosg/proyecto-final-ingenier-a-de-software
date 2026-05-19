@@ -65,6 +65,10 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 - Módulo de carrito: funcional
 - Frontend en React: en desarrollo
 - Despliegue: pendiente
+- Módulo de pedidos: funcional
+- Creación de pedido: funcional
+- Consulta de pedidos del usuario: funcional
+- Detalle de pedido: funcional
 
 ## Endpoints disponibles actualmente
 
@@ -90,6 +94,11 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 - `POST /cart/items`
 - `PUT /cart/items/:id`
 - `DELETE /cart/items/:id`
+
+### Pedidos
+- `POST /orders`
+- `GET /orders/my-orders`
+- `GET /orders/:id`
 
 ## Requisitos previos
 Antes de ejecutar el proyecto, es necesario tener instalado:
