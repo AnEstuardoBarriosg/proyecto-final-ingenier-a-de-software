@@ -26,6 +26,10 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 ### Gestión de paquetes
 - pnpm
 
+### Contenerización
+- Docker
+- Docker Compose
+
 ### Infraestructura / Hosting
 - Vercel para frontend
 - Render para backend y base de datos
@@ -36,6 +40,7 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 /backend    -> API y lógica del sistema  
 /database   -> scripts SQL y datos semilla  
 /docs       -> documentación, evidencias y pruebas  
+/docker-compose.yml -> configuración de servicios para Docker  
 
 ## Funcionalidades principales
 - Registro e inicio de sesión
@@ -63,12 +68,11 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 - JWT y rutas protegidas: funcional
 - Módulo de productos: funcional
 - Módulo de carrito: funcional
+- Módulo de pedidos: funcional
+- Pago simulado: funcional
+- Docker para backend y base de datos: funcional
 - Frontend en React: en desarrollo
 - Despliegue: pendiente
-- Módulo de pedidos: funcional
-- Creación de pedido: funcional
-- Consulta de pedidos del usuario: funcional
-- Detalle de pedido: funcional
 
 ## Endpoints disponibles actualmente
 
@@ -100,19 +104,23 @@ Desarrollar una versión funcional del sistema definido en la Fase I, manteniend
 - `GET /orders/my-orders`
 - `GET /orders/:id`
 
+### Pagos
+- `POST /payments/simulate`
+
 ## Requisitos previos
 Antes de ejecutar el proyecto, es necesario tener instalado:
 
 - Node.js
 - pnpm
-- PostgreSQL
+- Docker
+- Docker Compose
 - Git
 
 ## Configuración del entorno
 
 ### Backend
 1. Entrar a la carpeta `backend`
-2. Crear un archivo `.env` a partir de `.env.example`
+2. Crear un archivo `.env` a partir de `.env.example` si se trabajará fuera de Docker
 3. Configurar las variables necesarias
 
 ### Frontend
@@ -122,7 +130,23 @@ Antes de ejecutar el proyecto, es necesario tener instalado:
 
 ## Instalación y ejecución
 
-### Backend
+### Opción 1: ejecución con Docker
+Desde la raíz del proyecto:
+
+```bash
+docker compose up --build
+
+
+### Pruebas rápidas
+# Después de levantar Docker, verificar estas rutas en el navegador o Postman:
+
+- `http://localhost:3000/health`
+- `http://localhost:3000/db-test`
+- `http://localhost:3000/products`
+
+### Opción 2: ejecución local
+Desde la raíz del proyecto:
+
 ```bash
 cd backend
 pnpm install

@@ -1,0 +1,41 @@
+
+services:
+  db:
+    image: postgres:17
+    container_name: raices_market_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: raices2026
+      POSTGRES_DB: raices_market
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seeds.sql:/docker-entrypoint-initdb.d/02-seeds.sql
+
+  backend:
+    build:
+      context: ./backend
+    container_name: raices_market_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      CI: "true"
+      DATABASE_URL: postgresql://postgres:raices2026@db:5432/raices_market
+      JWT_SECRET: raices_market_clave_segura_2026
+      JWT_EXPIRES_IN: 1d
+      FRONTEND_URL: http://localhost:5173
+      SIMULATED_PAYMENT_ENABLED: "true"
+    ports:
+      - "3000:3000"
+#    volumes:
+#      - ./backend:/app
+#      - /app/node_modules
+
+volumes:
+  postgres_data:
