@@ -2,6 +2,20 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const pool = require("../db/pool");
 
+const MIN_PASSWORD_LENGTH = 8;
+
+const validationError = (message) => {
+    const err = new Error(message);
+    err.statusCode = 400;
+    return err;
+};
+
+const authError = (message) => {
+    const err = new Error(message);
+    err.statusCode = 401;
+    return err;
+};
+
 const registerUser = async ({
     nombre_completo,
     correo,
@@ -9,16 +23,24 @@ const registerUser = async ({
     telefono,
 }) => {
     if (!nombre_completo || !correo || !password) {
-        throw new Error("Nombre, correo y contraseña son obligatorios");
+        throw validationError("Nombre, correo y contraseña son obligatorios");
     }
+
+    if (password.length < MIN_PASSWORD_LENGTH) {
+        throw validationError(
+            `La contraseña debe tener al menos ${MIN_PASSWORD_LENGTH} caracteres`,
+        );
+    }
+
+    const correoNormalizado = String(correo).trim().toLowerCase();
 
     const existingUser = await pool.query(
         "SELECT id_usuario FROM usuarios WHERE correo = $1",
-        [correo],
+        [correoNormalizado],
     );
 
     if (existingUser.rows.length > 0) {
-        throw new Error("El correo ya está registrado");
+        throw validationError("El correo ya está registrado");
     }
 
     const roleResult = await pool.query(
@@ -39,7 +61,7 @@ const registerUser = async ({
         [
             id_rol,
             nombre_completo,
-            correo,
+            correoNormalizado,
             password_hash,
             telefono || null,
             "activo",
@@ -51,8 +73,10 @@ const registerUser = async ({
 
 const loginUser = async ({ correo, password }) => {
     if (!correo || !password) {
-        throw new Error("Correo y contraseña son obligatorios");
+        throw validationError("Correo y contraseña son obligatorios");
     }
+
+    const correoNormalizado = String(correo).trim().toLowerCase();
 
     const userResult = await pool.query(
         `SELECT u.id_usuario, u.nombre_completo, u.correo, u.password_hash, u.estado, r.nombre AS rol
@@ -60,23 +84,23 @@ const loginUser = async ({ correo, password }) => {
      INNER JOIN roles r ON u.id_rol = r.id_rol
      WHERE u.correo = $1
      LIMIT 1`,
-        [correo],
+        [correoNormalizado],
     );
 
     if (userResult.rows.length === 0) {
-        throw new Error("Credenciales inválidas");
+        throw authError("Credenciales inválidas");
     }
 
     const user = userResult.rows[0];
 
     if (user.estado !== "activo") {
-        throw new Error("La cuenta no está activa");
+        throw authError("La cuenta no está activa");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!passwordMatch) {
-        throw new Error("Credenciales inválidas");
+        throw authError("Credenciales inválidas");
     }
 
     const token = jwt.sign(

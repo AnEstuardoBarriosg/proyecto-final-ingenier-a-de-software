@@ -1,5 +1,22 @@
 const authService = require("../services/auth.service");
 
+const handleError = (res, error, context) => {
+    const status = error.statusCode || 500;
+
+    if (status >= 500) {
+        console.error(`[auth:${context}] error inesperado:`, error);
+        return res.status(500).json({
+            ok: false,
+            message: "Error interno del servidor",
+        });
+    }
+
+    return res.status(status).json({
+        ok: false,
+        message: error.message,
+    });
+};
+
 const register = async (req, res) => {
     try {
         const result = await authService.registerUser(req.body);
@@ -10,10 +27,7 @@ const register = async (req, res) => {
             data: result,
         });
     } catch (error) {
-        res.status(400).json({
-            ok: false,
-            message: error.message,
-        });
+        handleError(res, error, "register");
     }
 };
 
@@ -27,10 +41,7 @@ const login = async (req, res) => {
             data: result,
         });
     } catch (error) {
-        res.status(401).json({
-            ok: false,
-            message: error.message,
-        });
+        handleError(res, error, "login");
     }
 };
 
