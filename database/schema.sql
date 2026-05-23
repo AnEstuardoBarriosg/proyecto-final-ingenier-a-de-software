@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     password_hash VARCHAR(255) NOT NULL,
     telefono VARCHAR(20),
     estado VARCHAR(20) NOT NULL,
+    reset_token VARCHAR(255),
+    reset_token_expira TIMESTAMP,
     fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_usuarios_roles
         FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
@@ -171,7 +173,22 @@ CREATE TABLE IF NOT EXISTS resenas (
 );
 
 -- =========================
--- 7. ÍNDICES
+-- 7. NOTIFICACIONES
+-- =========================
+
+CREATE TABLE IF NOT EXISTS notificaciones (
+    id_notificacion SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    titulo VARCHAR(150) NOT NULL,
+    mensaje TEXT NOT NULL,
+    leida BOOLEAN NOT NULL DEFAULT FALSE,
+    fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_notificaciones_usuarios
+        FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+);
+
+-- =========================
+-- 8. ÍNDICES
 -- =========================
 
 CREATE INDEX IF NOT EXISTS idx_productos_id_categoria
@@ -197,3 +214,5 @@ CREATE INDEX IF NOT EXISTS idx_carrito_detalles_carrito_producto
 
 CREATE INDEX IF NOT EXISTS idx_resenas_id_producto
     ON resenas(id_producto);
+
+CREATE INDEX IF NOT EXISTS idx_notificaciones_id_usuario ON notificaciones(id_usuario);
