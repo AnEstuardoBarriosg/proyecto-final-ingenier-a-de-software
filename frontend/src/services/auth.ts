@@ -61,6 +61,9 @@ export type RegisterPayload = {
   correo: string
   password: string
   telefono?: string
+  rol?: 'cliente' | 'vendedor'
+  nombre_tienda?: string
+  descripcion_tienda?: string
 }
 
 export async function register(payload: RegisterPayload): Promise<AuthUser> {

@@ -17,8 +17,15 @@ const Login: React.FC = () => {
     setError(null)
     setSubmitting(true)
     try {
-      await login(correo, password)
-      navigate(redirectTo, { replace: true })
+      const user = await login(correo, password)
+      // Redirigir según el rol del usuario
+      if (user.rol === 'vendedor') {
+        navigate('/seller/products', { replace: true })
+      } else if (user.rol === 'admin' || user.rol === 'administrador') {
+        navigate('/admin/orders', { replace: true })
+      } else {
+        navigate(redirectTo, { replace: true })
+      }
     } catch (err) {
       setError((err as Error).message)
     } finally {
@@ -76,7 +83,13 @@ const Login: React.FC = () => {
         </button>
       </form>
 
-      <p className="mt-4 text-sm text-gray-600 text-center">
+      <p className="mt-3 text-sm text-center">
+        <Link to="/forgot-password" className="text-gray-500 hover:text-gray-700 hover:underline">
+          ¿Olvidaste tu contraseña?
+        </Link>
+      </p>
+
+      <p className="mt-2 text-sm text-gray-600 text-center">
         ¿No tienes cuenta? <Link to="/register" className="text-blue-600 hover:underline">Regístrate</Link>
       </p>
     </div>

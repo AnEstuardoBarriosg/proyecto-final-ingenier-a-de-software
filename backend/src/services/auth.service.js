@@ -21,6 +21,9 @@ const registerUser = async ({
     correo,
     password,
     telefono,
+    rol = "cliente",
+    nombre_tienda,
+    descripcion_tienda,
 }) => {
     if (!nombre_completo || !correo || !password) {
         throw validationError("Nombre, correo y contraseña son obligatorios");
@@ -30,6 +33,13 @@ const registerUser = async ({
         throw validationError(
             `La contraseña debe tener al menos ${MIN_PASSWORD_LENGTH} caracteres`,
         );
+    }
+
+    // Solo se permiten estos roles en el registro público
+    const rolSolicitado = rol === "vendedor" ? "vendedor" : "cliente";
+
+    if (rolSolicitado === "vendedor" && !nombre_tienda?.trim()) {
+        throw validationError("El nombre de la tienda es obligatorio para vendedores");
     }
 
     const correoNormalizado = String(correo).trim().toLowerCase();
@@ -44,11 +54,12 @@ const registerUser = async ({
     }
 
     const roleResult = await pool.query(
-        "SELECT id_rol FROM roles WHERE nombre = 'cliente' LIMIT 1",
+        "SELECT id_rol FROM roles WHERE nombre = $1 LIMIT 1",
+        [rolSolicitado],
     );
 
     if (roleResult.rows.length === 0) {
-        throw new Error("No existe el rol cliente en la base de datos");
+        throw new Error(`No existe el rol ${rolSolicitado} en la base de datos`);
     }
 
     const id_rol = roleResult.rows[0].id_rol;
@@ -68,7 +79,22 @@ const registerUser = async ({
         ],
     );
 
-    return insertUser.rows[0];
+    const newUser = insertUser.rows[0];
+
+    // Si se registra como vendedor, crear su perfil de tienda (pendiente de aprobación)
+    if (rolSolicitado === "vendedor") {
+        await pool.query(
+            `INSERT INTO vendedores (id_usuario, nombre_tienda, descripcion, estado_aprobacion)
+             VALUES ($1, $2, $3, 'pendiente')`,
+            [
+                newUser.id_usuario,
+                nombre_tienda.trim(),
+                descripcion_tienda?.trim() || null,
+            ],
+        );
+    }
+
+    return newUser;
 };
 
 const loginUser = async ({ correo, password }) => {

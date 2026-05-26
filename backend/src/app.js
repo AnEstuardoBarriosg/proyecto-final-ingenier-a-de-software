@@ -18,6 +18,7 @@ const passwordRoutes = require("./routes/password.routes");
 const adminProductsRoutes = require("./routes/admin-products.routes");
 const notificationsRoutes = require("./routes/notifications.routes");
 const reviewsRoutes = require("./routes/reviews.routes");
+const addressesRoutes = require("./routes/addresses.routes");
 
 const app = express();
 
@@ -64,4 +65,5 @@ app.use("/password", passwordRoutes);
 app.use("/admin/products", adminProductsRoutes);
 app.use("/notifications", notificationsRoutes);
 app.use("/reviews", reviewsRoutes);
+app.use("/addresses", addressesRoutes);
 module.exports = app;
