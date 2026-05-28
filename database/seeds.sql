@@ -203,7 +203,7 @@ WHERE NOT EXISTS (
 INSERT INTO producto_imagenes (id_producto, url_imagen, es_principal)
 SELECT
     (SELECT id_producto FROM productos WHERE nombre = 'Bufanda artesanal' LIMIT 1),
-    'https://via.placeholder.com/400x300?text=Bufanda+artesanal',
+    'https://placehold.co/400x300?text=Pulsera+tejida',
     TRUE
 WHERE NOT EXISTS (
     SELECT 1
@@ -215,7 +215,7 @@ WHERE NOT EXISTS (
 INSERT INTO producto_imagenes (id_producto, url_imagen, es_principal)
 SELECT
     (SELECT id_producto FROM productos WHERE nombre = 'Taza de barro' LIMIT 1),
-    'https://via.placeholder.com/400x300?text=Taza+de+barro',
+    'https://placehold.co/400x300?text=Taza+de+barro',
     TRUE
 WHERE NOT EXISTS (
     SELECT 1
@@ -227,7 +227,7 @@ WHERE NOT EXISTS (
 INSERT INTO producto_imagenes (id_producto, url_imagen, es_principal)
 SELECT
     (SELECT id_producto FROM productos WHERE nombre = 'Pulsera tejida' LIMIT 1),
-    'https://via.placeholder.com/400x300?text=Pulsera+tejida',
+    'https://placehold.co/400x300?text=Pulsera+tejida',
     TRUE
 WHERE NOT EXISTS (
     SELECT 1
@@ -239,7 +239,7 @@ WHERE NOT EXISTS (
 INSERT INTO producto_imagenes (id_producto, url_imagen, es_principal)
 SELECT
     (SELECT id_producto FROM productos WHERE nombre = 'Jarrón decorativo' LIMIT 1),
-    'https://via.placeholder.com/400x300?text=Jarron+decorativo',
+    'https://placehold.co/400x300?text=Jarron+decorativo',
     TRUE
 WHERE NOT EXISTS (
     SELECT 1
