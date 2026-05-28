@@ -2,6 +2,8 @@
 
 Raíces Market es una plataforma web de e-commerce para artesanías o productos locales con pago simulado. El sistema permite que los clientes exploren productos, los agreguen al carrito, realicen compras, consulten el estado de sus pedidos y reciban notificaciones. Además, incluye funcionalidades para vendedores y administradores.
 
+## Disparador de pipeline
+
 ## Integrantes
 - Angel Estuardo Barrios Gómez
 - Ximena
